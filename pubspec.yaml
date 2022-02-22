@@ -73,6 +73,7 @@ flutter:
     - assets/i18n/pt.json
     # Images
     - assets/images/hmv_logo.png
+    - assets/images/hmv_assist_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
