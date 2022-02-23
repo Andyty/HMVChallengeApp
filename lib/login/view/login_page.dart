@@ -18,7 +18,6 @@ class LoginPage extends StatelessWidget {
       DeviceOrientation.portraitUp
     ]);
     return Scaffold(
-      //appBar: AppBar(title: const Text('Login'),),
       body: Container(
         color: Color.fromRGBO(7, 81, 143, 1),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
