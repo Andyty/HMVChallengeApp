@@ -29,13 +29,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   flutter_bloc: ^8.0.0
+  intl: ^0.17.0
   formz: ^0.4.0
   equatable: ^2.0.0
   authentication_repository:
     path: packages/authentication_repository
   user_repository:
     path: packages/user_repository
+  table_calendar: ^3.0.4
 
 
 

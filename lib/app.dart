@@ -1,6 +1,7 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hmv_challenge_app/authentication/bloc/authentication_bloc.dart';
 import 'package:hmv_challenge_app/home/view/home_page.dart';
 import 'package:hmv_challenge_app/login/login.dart';
@@ -47,6 +48,14 @@ class _AppViewState extends State<AppView> {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: _navigatorKey,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('pt', 'BR')
+      ],
+      locale: Locale('pt', 'BR'),
       builder: (context, child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
@@ -70,6 +79,22 @@ class _AppViewState extends State<AppView> {
           child: child,
         );
       },
+      theme: ThemeData(
+          primaryColor: const Color.fromRGBO(7, 81, 143, 1),
+          colorScheme: ColorScheme(
+              brightness: Brightness.light,
+              primary: const Color.fromRGBO(7, 81, 143, 1),
+              onPrimary: const Color.fromRGBO(255, 255, 255, 0.85),
+              secondary: const Color.fromRGBO(230, 230, 230, 1),
+              onSecondary: const Color.fromRGBO(7, 81, 143, 0.85),
+              error: Colors.red.shade300,
+              onError: const Color.fromRGBO(255, 255, 255, 0.85),
+              background: const Color.fromRGBO(230, 230, 230, 1),
+              onBackground: const Color.fromRGBO(7, 81, 143, 0.85),
+              surface: const Color.fromRGBO(230, 230, 230, 1),
+              onSurface: const Color.fromRGBO(7, 81, 143, 0.85)
+          )
+      ),
       onGenerateRoute: (_) => SplashPage.route(),
     );
   }

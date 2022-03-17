@@ -5,6 +5,8 @@ import 'package:formz/formz.dart';
 import 'package:hmv_challenge_app/login/login.dart';
 
 class LoginForm extends StatelessWidget {
+  const LoginForm({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
