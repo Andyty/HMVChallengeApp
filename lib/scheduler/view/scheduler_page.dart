@@ -1,88 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hmv_challenge_app/scheduler/bloc/pacient_schedule_bloc.dart';
 import 'package:hmv_challenge_app/scheduler/view/schedule_calendar.dart';
-import 'package:hmv_challenge_app/scheduler/view/schedule_type.dart';
+import 'package:schedule_repository/schedule_repository.dart' hide Schedule;
 
 class SchedulerPage extends StatefulWidget {
   const SchedulerPage({Key? key}) : super(key: key);
 
   @override
   State<SchedulerPage> createState() => _SchedulerPageState();
+
+  static Route route() {
+    return MaterialPageRoute(builder: (_) => SchedulerPage());
+  }
 }
 
 class _SchedulerPageState extends State<SchedulerPage> {
-
-  int _scheduleStep = 0;
-  ScheduleTypes? _scheduleTypeSelected;
-
-
   @override
   Widget build(BuildContext context) {
-
-    Widget _currentStepWidget;
-    switch(_scheduleStep) {
-      case 0: {
-        _currentStepWidget = ScheduleCalendar(createEvent: createEvent,);
-      }
-      break;
-
-      case 1: {
-        _currentStepWidget = ScheduleType(selectScheduleType: selectScheduleType);
-      }
-      break;
-
-      case 2: {
-        _currentStepWidget = Center(
-          child: Text(_scheduleTypeSelected.toString()),
-        );
-      }
-      break;
-
-      default: {
-        _currentStepWidget = Container();
-      }
-      break;
-    }
-
-
-    return _currentStepWidget;
-    // return ListView(
-    //   children: [
-    //     _currentStepWidget
-    //   ],
-    // );
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Meus Agendamentos"),
+        //actions: [],
+      ),
+      body: RepositoryProvider(
+        create: (context) => ScheduleRepository(),
+        child: BlocProvider<PacientScheduleBloc>(
+          create: (context) {
+            return PacientScheduleBloc(
+              scheduleRepository: context.read<ScheduleRepository>(),
+            )..add(GetPacientSchedules(1));
+          },
+          child: ScheduleCalendar(),
+        ),
+      )
+    );
   }
 
-  void selectScheduleType(ScheduleTypes type) {
-    setState(() {
-      _scheduleStep = 2;
-      _scheduleTypeSelected = type;
-      //AlertDialog(content: Text(_scheduleTypeSelected.toString()),);
-    });
-  }
-
-  void createEvent() {
-    setState(() {
-      _scheduleStep = 1;
-    });
-  }
 }
-
-
-
-// class SchedulerPage extends StatelessWidget {
-//   const SchedulerPage({Key? key}) : super(key: key);
-//
-//   int _scheduleStep = 0;
-//
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: ListView(
-//         children: [
-//
-//         ],
-//       ),
-//     );
-//   }
-// }

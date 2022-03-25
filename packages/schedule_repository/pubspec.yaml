@@ -1,0 +1,23 @@
+name: schedule_repository
+description: A new Flutter package project.
+version: 0.0.1
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  equatable: ^2.0.3
+  json_annotation: ^4.4.0
+  schedule_api:
+    path: ../schedule_api
+
+dev_dependencies:
+  coverage: ^1.0.3
+  build_runner: ^2.0.0
+  json_serializable: ^6.0.0
+  mocktail: ^0.2.0
+  test: ^1.16.4
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+

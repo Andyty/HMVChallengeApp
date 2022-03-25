@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hmv_challenge_app/authentication/bloc/authentication_bloc.dart';
 import 'package:hmv_challenge_app/home/view/home_page.dart';
 import 'package:hmv_challenge_app/login/login.dart';
+import 'package:hmv_challenge_app/scheduler/view/scheduler_page.dart';
 import 'package:hmv_challenge_app/splash/splash.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -62,7 +63,7 @@ class _AppViewState extends State<AppView> {
             switch (state.status) {
               case AuthenticationStatus.authenticated:
                 _navigator.pushAndRemoveUntil(
-                  HomePage.route(),
+                  SchedulerPage.route(),
                   (route) => false,
                 );
                 break;
