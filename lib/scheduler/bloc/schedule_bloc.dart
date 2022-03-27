@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hmv_challenge_app/scheduler/models/schedule.dart';
+import 'package:hmv_challenge_app/scheduler/models/models.dart';
 import 'package:meta/meta.dart';
-import 'package:schedule_repository/schedule_repository.dart' hide Schedule;
+import 'package:schedule_repository/schedule_repository.dart' hide Schedule, PostSchedule;
 
 part 'schedule_event.dart';
 part 'schedule_state.dart';
@@ -32,4 +32,6 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
       emit(state.copyWith(status: ScheduleStatus.error));
     }
   }
+
+
 }

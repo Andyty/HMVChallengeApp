@@ -41,6 +41,7 @@ class _ScheduleCalendarState extends State<ScheduleCalendar> {
                   ),
                   calendarStyle: const CalendarStyle(
                     outsideDaysVisible: true,
+
                   ),
                   firstDay: state.scheduleDates.isEmpty ? _firstDay : state.scheduleDates.first.subtract(const Duration(days: 180)),
                   lastDay: state.scheduleDates.isEmpty ? _lastDay : state.scheduleDates.last.add(const Duration(days: 180)),
@@ -82,7 +83,6 @@ class _ScheduleCalendarState extends State<ScheduleCalendar> {
                                   return Card(
                                     child: ListTile(
                                       title: Text(value[index].medicName),
-                                      //leading: ,
                                       trailing: Text(dateFormat.format(value[index].scheduleDate)),
                                     ),
                                   );

@@ -55,7 +55,7 @@ class ScheduleApiClient {
     final request = Uri.https(
         _baseUrl,
         '/dev/medicoporespecialidade',
-        <String, int>{'idEspecialidade': idSpecialty}
+        <String, String>{'idEspecialidade': idSpecialty.toString()}
     );
 
     final response = await _httpClient.get(request);
@@ -79,12 +79,12 @@ class ScheduleApiClient {
   }
 
   Future<List<Schedule>> getFreeSchedule(int idSpecialty, DateTime start, DateTime end, int? idMedic) async {
-    final DateFormat dateFormat = DateFormat("yyyy/MM/yyTkk:mm");
-    Map<String, dynamic> params = {
+    final DateFormat dateFormat = DateFormat("yyyy-MM-dd'T'HH:mm");
+    Map<String, String> params = {
       'dtAgendamentoInicio': dateFormat.format(start),
       'dtAgendamentoFim': dateFormat.format(end),
-      'idEspecialidade': idSpecialty,
-      'idMedico': idMedic
+      'idEspecialidade': idSpecialty.toString(),
+      'idMedico': idMedic.toString()
     };
 
     final request = Uri.https(
@@ -92,6 +92,8 @@ class ScheduleApiClient {
         '/dev/agendamentoconsulta',
         params
     );
+
+    print(request);
 
     final response = await _httpClient.get(request);
 
@@ -114,7 +116,6 @@ class ScheduleApiClient {
   }
 
   Future<List<Schedule>> getPacientSchedule(int idPacient) async {
-    final DateFormat dateFormat = DateFormat("yyyy/MM/yyTkk:mm");
     Map<String, String> params = {
       'idUsuario': idPacient.toString(),
     };
@@ -143,5 +144,34 @@ class ScheduleApiClient {
     }
 
     return _returnList;
+  }
+
+  Future<PostSchedule?> bookSchedule(int idPacient, int idSchedule, String scheduleType) async {
+    Map<String, String> params = {
+      'IdUsuario': idPacient.toString(),
+      'IdAgenda': idSchedule.toString(),
+      'TipoAgendamento': scheduleType
+    };
+
+    final request = Uri.https(
+        _baseUrl,
+        '/dev/marcarconsulta',
+        params
+    );
+
+    print(request);
+    final response = await _httpClient.post(request);
+
+    if (response.statusCode != 200) {
+      throw GetSchedulesFailure();
+    }
+
+    final postSchedulesJson = jsonDecode(response.body) as List;
+
+    if (postSchedulesJson.isEmpty) {
+      return null;
+    }
+
+    return PostSchedule.fromJson(postSchedulesJson.first as Map<String, dynamic>);
   }
 }

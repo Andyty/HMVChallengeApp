@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:schedule_api/schedule_api.dart' hide Schedule, Medic, MedicalSpecialty;
+import 'package:schedule_api/schedule_api.dart' hide Schedule, Medic, MedicalSpecialty, PostSchedule;
 import 'package:schedule_repository/schedule_repository.dart';
 
 class ScheduleFailure implements Exception {}
@@ -29,5 +29,17 @@ class ScheduleRepository {
   Future<List<Schedule>> getPacientSchedules(int idPacient) async {
     final schedulesList = await _scheduleApiClient.getPacientSchedule(idPacient);
     return schedulesList.map((e) => Schedule(scheduleId: e.idAgenda, scheduleDate: e.dtAgendamento, medicId: e.idMedico, medicName: e.nomeMedico)).toList();
+  }
+
+  Future<PostSchedule?> bookSchedule(int idPacient, int idSchedule, String scheduleType) async {
+    final postSchedulesList = await _scheduleApiClient.bookSchedule(idPacient, idSchedule, scheduleType);
+    return postSchedulesList == null
+        ? null
+        : PostSchedule(
+            isBooked: postSchedulesList.agendado,
+            scheduleDate: postSchedulesList.dtAgendamento,
+            medicId: postSchedulesList.idMedico,
+            createdIn: postSchedulesList.createdIn,
+            scheduleType: postSchedulesList.tipoAgendamento);
   }
 }

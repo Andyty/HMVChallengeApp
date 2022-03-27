@@ -20,3 +20,4 @@ class ScheduleGetFreeSchedules extends ScheduleEvent {
   @override
   List<Object?> get props => [dtStart, dtEnd, idSpecialty, idMedic];
 }
+

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hmv_challenge_app/authentication/bloc/authentication_bloc.dart';
-import 'package:hmv_challenge_app/home/view/home_page.dart';
 import 'package:hmv_challenge_app/login/login.dart';
 import 'package:hmv_challenge_app/scheduler/view/scheduler_page.dart';
 import 'package:hmv_challenge_app/splash/splash.dart';
