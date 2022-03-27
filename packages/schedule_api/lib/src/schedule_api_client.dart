@@ -93,8 +93,6 @@ class ScheduleApiClient {
         params
     );
 
-    print(request);
-
     final response = await _httpClient.get(request);
 
     if (response.statusCode != 200) {
@@ -146,32 +144,36 @@ class ScheduleApiClient {
     return _returnList;
   }
 
-  Future<PostSchedule?> bookSchedule(int idPacient, int idSchedule, String scheduleType) async {
-    Map<String, String> params = {
-      'IdUsuario': idPacient.toString(),
-      'IdAgenda': idSchedule.toString(),
+  Future<PostSchedule?> bookSchedule(int idPacient, int idSchedule, int scheduleType) async {
+    String body = jsonEncode(<String, dynamic>{
+      'IdUsuario': idPacient,
+      'IdAgenda': idSchedule,
       'TipoAgendamento': scheduleType
-    };
+    });
 
     final request = Uri.https(
         _baseUrl,
         '/dev/marcarconsulta',
-        params
     );
 
-    print(request);
-    final response = await _httpClient.post(request);
+    final response = await _httpClient.post(
+      request,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: body,
+    );
 
     if (response.statusCode != 200) {
       throw GetSchedulesFailure();
     }
 
-    final postSchedulesJson = jsonDecode(response.body) as List;
+    final postSchedulesJson = jsonDecode(response.body);
 
     if (postSchedulesJson.isEmpty) {
       return null;
     }
 
-    return PostSchedule.fromJson(postSchedulesJson.first as Map<String, dynamic>);
+    return PostSchedule.fromJson(postSchedulesJson as Map<String, dynamic>);
   }
 }

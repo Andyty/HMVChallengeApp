@@ -13,7 +13,7 @@ class BookNewSchedule extends BookScheduleEvent {
 
   final int pacientId;
   final int scheduleId;
-  final String scheduleType;
+  final int scheduleType;
 
   @override
   List<Object?> get props => [pacientId, scheduleId, scheduleType];

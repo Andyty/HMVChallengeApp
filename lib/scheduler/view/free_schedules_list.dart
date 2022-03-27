@@ -93,11 +93,13 @@ class _FreeSchedulesListState extends State<FreeSchedulesList> {
                   ..showSnackBar(const SnackBar(
                     content: Text("Agendamento efetuado com sucesso!"),
                   ));
-                Navigator.push(context, SchedulerPage.route());
+                Navigator.pushAndRemoveUntil(context, SchedulerPage.route(), (route) => false);
               }
             },
             builder: (bookScheduleBlocContext, state) {
-              if (state.status.isInitial || state.status.isError) {
+              if (state.status.isInitial
+                  || state.status.isError
+                  || (state.status.isSuccess && !state.bookSchedule.isBooked)  ) {
                 return Scaffold(
                     appBar: AppBar(
                       title: const Text('Novo Agendamento'),
@@ -276,7 +278,7 @@ class _FreeSchedulesListState extends State<FreeSchedulesList> {
                             Navigator.pop(context, 'OK');
                             bookScheduleBlocContext.read<BookScheduleBloc>().add(
                                 BookNewSchedule(widget.idUser,
-                                    element.scheduleId, "CONSULTA"));
+                                    element.scheduleId, 1));
                           },
                           child: const Text('CONFIRMAR'),
                         ),

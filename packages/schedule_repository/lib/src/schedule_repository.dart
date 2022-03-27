@@ -31,7 +31,7 @@ class ScheduleRepository {
     return schedulesList.map((e) => Schedule(scheduleId: e.idAgenda, scheduleDate: e.dtAgendamento, medicId: e.idMedico, medicName: e.nomeMedico)).toList();
   }
 
-  Future<PostSchedule?> bookSchedule(int idPacient, int idSchedule, String scheduleType) async {
+  Future<PostSchedule?> bookSchedule(int idPacient, int idSchedule, int scheduleType) async {
     final postSchedulesList = await _scheduleApiClient.bookSchedule(idPacient, idSchedule, scheduleType);
     return postSchedulesList == null
         ? null
